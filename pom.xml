@@ -3,29 +3,35 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>io.quarkus</groupId>
-    <artifactId>quarkus-lambdada</artifactId>
+    <groupId>com.github.alexeysharandin.quarkus.lambdada</groupId>
+    <artifactId>quarkus-lambdada-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Quarkus Lambda Profiler - Parent</name>
     <modules>
         <module>deployment</module>
         <module>runtime</module>
-        <module>executor</module>
+        <module>user-interface</module>
+        <!--<module>executor</module>-->
     </modules>
     <properties>
-        <compiler-plugin.version>3.8.1</compiler-plugin.version>
-        <failsafe-plugin.version>${surefire-plugin.version}</failsafe-plugin.version>
-        <failsafe.useModulePath>false</failsafe.useModulePath>
-        <maven.compiler.release>11</maven.compiler.release>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <quarkus.version>2.8.2.Final</quarkus.version>
+
+        <compiler-plugin.version>3.8.1</compiler-plugin.version>
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
+        <failsafe-plugin.version>${surefire-plugin.version}</failsafe-plugin.version>
+        <failsafe.useModulePath>false</failsafe.useModulePath>
+
+        <quarkus.version>2.8.2.Final</quarkus.version>
+
         <!--<vertx-version>4.3.0-SNAPSHOT</vertx-version>-->
-        <mitiny-version>1.4.0</mitiny-version>
+        <!--<mitiny-version>1.4.0</mitiny-version>-->
         <!--<mitiny-version>999-SNAPSHOT</mitiny-version>-->
-        <vertx-version>4.2.5</vertx-version>
+        <!--<vertx-version>4.2.5</vertx-version>-->
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -52,6 +58,7 @@
                     <configuration>
                         <systemPropertyVariables>
                             <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                            <!--suppress UnresolvedMavenProperty -->
                             <maven.home>${maven.home}</maven.home>
                             <maven.repo>${settings.localRepository}</maven.repo>
                         </systemPropertyVariables>
@@ -63,6 +70,7 @@
                     <configuration>
                         <systemPropertyVariables>
                             <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                            <!--suppress UnresolvedMavenProperty -->
                             <maven.home>${maven.home}</maven.home>
                             <maven.repo>${settings.localRepository}</maven.repo>
                         </systemPropertyVariables>
