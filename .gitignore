@@ -28,3 +28,4 @@ hs_err_pid*
 /target/
 /runtime/target/
 /deployment/target/
+/user-interface/target/
