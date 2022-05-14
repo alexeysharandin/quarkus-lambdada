@@ -1,6 +1,7 @@
 package com.github.alexeysharandin.quarkus.lambdada.runtime.context;
 
-import com.github.alexeysharandin.quarkus.lambdada.runtime.Tracker;
+import com.github.alexeysharandin.quarkus.lambdada.runtime.ProfileStackTraceElement;
+import io.vertx.mutiny.core.Context;
 import io.vertx.mutiny.core.Vertx;
 
 public class QuarkusVertxContext implements QuarkusContext {
@@ -9,22 +10,26 @@ public class QuarkusVertxContext implements QuarkusContext {
     static final QuarkusContext INSTANCE = new QuarkusVertxContext();
 
     @Override
-    public Tracker value() {
-        return Vertx.currentContext().getLocal(KEY);
+    public ProfileStackTraceElement value() {
+        return ctx().getLocal(KEY);
+    }
+
+    protected Context ctx() {
+        return Vertx.currentContext();
     }
 
     @Override
-    public void value(Tracker tracker) {
-        Vertx.currentContext().putLocal(KEY, tracker);
+    public void value(ProfileStackTraceElement profileStackTraceElement) {
+        ctx().putLocal(KEY, profileStackTraceElement);
     }
 
     @Override
     public void clear() {
-        Vertx.currentContext().removeLocal(KEY);
+        ctx().removeLocal(KEY);
     }
 
     @Override
     public String toString() {
-        return Vertx.currentContext().toString();
+        return String.valueOf(ctx());
     }
 }

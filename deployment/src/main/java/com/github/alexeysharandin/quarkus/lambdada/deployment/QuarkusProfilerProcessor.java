@@ -1,5 +1,7 @@
 package com.github.alexeysharandin.quarkus.lambdada.deployment;
 
+import com.github.alexeysharandin.quarkus.lambdada.io.sqlite.EmbeddedStackTraceWriter;
+import com.github.alexeysharandin.quarkus.lambdada.io.StackTraceWriter;
 import com.github.alexeysharandin.quarkus.lambdada.runtime.*;
 import com.github.alexeysharandin.quarkus.lambdada.deployment.build.ProfilerDumperBuildItem;
 import com.github.alexeysharandin.quarkus.lambdada.deployment.build.ProfilerPluginBuildItem;
@@ -63,27 +65,27 @@ public class QuarkusProfilerProcessor {
             ProfilerRecorder rec
     ) {
         LOGGER.info("Create Profiler Bean");
-        List<Dumper> dumpers = registerDumpers(dumperBuildItems);
+        List<StackTraceWriter> stackTraceWriters = registerDumpers(dumperBuildItems);
         List<ProfilerPlugin> profilerPlugins = registerPlugins(pluginBuildItems);
 
         SyntheticBeanBuildItem bean = SyntheticBeanBuildItem
                 .configure(ProfilerRuntimeRecorder.class)
                 .scope(Singleton.class)
-                .runtimeValue(rec.create(dumpers, profilerPlugins))
+                .runtimeValue(rec.create(stackTraceWriters, profilerPlugins))
                 .unremovable()
                 .done();
         syntheticBuildProducer.produce(bean);
     }
 
-    private List<Dumper> registerDumpers(List<ProfilerDumperBuildItem> dumpers) {
+    private List<StackTraceWriter> registerDumpers(List<ProfilerDumperBuildItem> dumpers) {
         LOGGER.info("Register dumpers");
-        List<Dumper> result = new ArrayList<>();
+        List<StackTraceWriter> result = new ArrayList<>();
         if (dumpers.size() == 0) {
-            LOGGER.info("Dumpers not found. Register default: " + ConsoleDumber.class.getName());
-            result.add(new ConsoleDumber());
+            LOGGER.info("Dumpers not found. Register default: " + EmbeddedStackTraceWriter.class.getName());
+            result.add(new EmbeddedStackTraceWriter());
         } else {
             for (ProfilerDumperBuildItem item : dumpers) {
-                Class<? extends Dumper> clazz = item.dumperClass();
+                Class<? extends StackTraceWriter> clazz = item.dumperClass();
                 try {
                     result.add(clazz.getDeclaredConstructor().newInstance());
                     LOGGER.info("Dumper created for class: " + clazz.getName());

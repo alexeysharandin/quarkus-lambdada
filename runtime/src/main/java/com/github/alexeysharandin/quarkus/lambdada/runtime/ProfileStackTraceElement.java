@@ -7,17 +7,17 @@ import java.util.UUID;
 /**
  * @author <a href="mailto:sanders@yandex.ru">Alexey Sharandin</a>
  */
-public class Tracker {
+public class ProfileStackTraceElement {
     private final long startTime;
     private long stopTime;
     private long delta;
     private final EntryMetadata metadata;
     private UUID uuid;
-    private Tracker parent;
+    private ProfileStackTraceElement parent;
 
-    private final List<Tracker> leafs;
+    private final List<ProfileStackTraceElement> leafs;
 
-    public Tracker(EntryMetadata metadata) {
+    public ProfileStackTraceElement(EntryMetadata metadata) {
         this.startTime = System.currentTimeMillis();
         this.metadata = metadata;
         this.leafs = new ArrayList<>();
@@ -58,20 +58,20 @@ public class Tracker {
         return uuid;
     }
 
-    public void parent(Tracker parent) {
+    public void parent(ProfileStackTraceElement parent) {
         this.parent = parent;
         this.parent.addLeaf(this);
     }
 
-    void addLeaf(Tracker tracker) {
-        leafs.add(tracker);
+    void addLeaf(ProfileStackTraceElement profileStackTraceElement) {
+        leafs.add(profileStackTraceElement);
     }
 
-    public List<Tracker> leafs() {
+    public List<ProfileStackTraceElement> leafs() {
         return leafs;
     }
 
-    public Tracker parent() {
+    public ProfileStackTraceElement parent() {
         return parent;
     }
 
@@ -83,5 +83,8 @@ public class Tracker {
         this.uuid = uuid;
     }
 
+    public EntryMetadata meta() {
+        return metadata;
+    }
 }
 

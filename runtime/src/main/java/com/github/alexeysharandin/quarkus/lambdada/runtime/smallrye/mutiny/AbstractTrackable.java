@@ -1,20 +1,20 @@
 package com.github.alexeysharandin.quarkus.lambdada.runtime.smallrye.mutiny;
 
 
-import com.github.alexeysharandin.quarkus.lambdada.runtime.Tracker;
+import com.github.alexeysharandin.quarkus.lambdada.runtime.ProfileStackTraceElement;
 
 /**
  * @author <a href="mailto:sanders@yandex.ru">Alexey Sharandin</a>
  */
 public abstract class AbstractTrackable implements Trackable {
-    private Tracker tracker;
+    private ProfileStackTraceElement profileStackTraceElement;
     @Override
-    public void tracker(Tracker tracker) {
-        this.tracker = tracker;
+    public void tracker(ProfileStackTraceElement profileStackTraceElement) {
+        this.profileStackTraceElement = profileStackTraceElement;
     }
 
     @Override
-    public Tracker tracker() {
-        return tracker;
+    public ProfileStackTraceElement tracker() {
+        return profileStackTraceElement;
     }
 }

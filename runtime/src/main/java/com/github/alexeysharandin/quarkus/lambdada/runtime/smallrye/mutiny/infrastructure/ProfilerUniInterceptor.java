@@ -21,13 +21,13 @@ public class ProfilerUniInterceptor implements UniInterceptor {
 
     @Override
     public <T> UniSubscriber<? super T> onSubscription(Uni<T> instance, UniSubscriber<? super T> subscriber) {
-        LOGGER.debug("UniSubscriber: instance = " + instance + ", subscriber = " + subscriber);
+        //LOGGER.debug("UniSubscriber: instance = " + instance + ", subscriber = " + subscriber);
         return UniInterceptor.super.onSubscription(instance, subscriber);
     }
 
     @Override
     public int ordinal() {
-        LOGGER.debug("ordinal: " + UniInterceptor.super.ordinal());
+        //LOGGER.debug("ordinal: " + UniInterceptor.super.ordinal());
         return UniInterceptor.super.ordinal();
     }
 }

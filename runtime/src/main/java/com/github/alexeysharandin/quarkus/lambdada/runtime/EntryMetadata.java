@@ -2,6 +2,9 @@ package com.github.alexeysharandin.quarkus.lambdada.runtime;
 
 import java.lang.invoke.SerializedLambda;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 /**
  * @author <a href="mailto:sanders@yandex.ru">Alexey Sharandin</a>
  */
@@ -9,9 +12,12 @@ public class EntryMetadata {
     private final String className;
     private final String methodName;
 
+    private final Map<String, Object> meta;
+
     EntryMetadata(String className, String methodName) {
         this.className = className;
         this.methodName = methodName;
+        meta = new LinkedHashMap<>();
     }
 
     public static EntryMetadata from(SerializedLambda lambda) {
@@ -49,11 +55,24 @@ public class EntryMetadata {
         return methodName;
     }
 
+    public void addMetaData(String key, String value) {
+        meta.put(key, value);
+    }
+
+    public void addMetaData(Map<String, String> map) {
+        meta.putAll(map);
+    }
+
+    public Map<String, Object> metadata() {
+        return meta;
+    }
+
     @Override
     public String toString() {
         return "EntryMetadata{" +
                 "className='" + className + '\'' +
                 ", methodName='" + methodName + '\'' +
+                ", meta=" + meta +
                 '}';
     }
 }

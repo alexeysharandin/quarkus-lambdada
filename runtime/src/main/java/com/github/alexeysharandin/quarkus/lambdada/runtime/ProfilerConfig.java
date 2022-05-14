@@ -14,4 +14,16 @@ public class ProfilerConfig {
      */
     @ConfigItem(defaultValue = "false")
     public boolean enabled;
+
+    /**
+     * Dev path
+     */
+    @ConfigItem(defaultValue = "lamdbada")
+    public String path;
+
+    /**
+     * Max requests queue
+     */
+    @ConfigItem(name = "max-requests", defaultValue = "100")
+    public Integer maxRequests;
 }

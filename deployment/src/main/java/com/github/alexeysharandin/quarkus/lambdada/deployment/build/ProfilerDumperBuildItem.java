@@ -1,16 +1,16 @@
 package com.github.alexeysharandin.quarkus.lambdada.deployment.build;
 
-import com.github.alexeysharandin.quarkus.lambdada.runtime.Dumper;
+import com.github.alexeysharandin.quarkus.lambdada.io.StackTraceWriter;
 import io.quarkus.builder.item.MultiBuildItem;
 
 public class ProfilerDumperBuildItem extends MultiBuildItem {
-    private final Class<? extends Dumper> dumperClass;
+    private final Class<? extends StackTraceWriter> dumperClass;
 
-    public ProfilerDumperBuildItem(Class<? extends Dumper> dumperClass) {
+    public ProfilerDumperBuildItem(Class<? extends StackTraceWriter> dumperClass) {
         this.dumperClass = dumperClass;
     }
 
-    public Class<? extends Dumper> dumperClass() {
+    public Class<? extends StackTraceWriter> dumperClass() {
         return dumperClass;
     }
 }

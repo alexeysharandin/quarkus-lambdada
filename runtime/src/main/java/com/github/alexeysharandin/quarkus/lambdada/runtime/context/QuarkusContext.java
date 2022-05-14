@@ -1,23 +1,29 @@
 package com.github.alexeysharandin.quarkus.lambdada.runtime.context;
 
-import com.github.alexeysharandin.quarkus.lambdada.runtime.Tracker;
+import com.github.alexeysharandin.quarkus.lambdada.runtime.ProfileStackTraceElement;
 import io.vertx.core.Context;
 import io.vertx.core.Vertx;
 
 public interface QuarkusContext {
-    static QuarkusContext get(Context context) {
-        if(context == null) {
-            context = Vertx.currentContext();
+    static QuarkusContext get(final Context context) {
+        if(context != null) {
+            return new QuarkusVertxContext() {
+                @Override
+                protected io.vertx.mutiny.core.Context ctx() {
+                    return new io.vertx.mutiny.core.Context(context) ;
+                }
+            };
         }
-        return context == null ? QuarkusThreadContext.INSTANCE : QuarkusVertxContext.INSTANCE;
+        return Vertx.currentContext() == null ?
+                QuarkusThreadContext.INSTANCE : QuarkusVertxContext.INSTANCE;
     }
 
     static QuarkusContext get() {
         return get(null);
     }
 
-    Tracker value();
-    void value(Tracker tracker);
+    ProfileStackTraceElement value();
+    void value(ProfileStackTraceElement profileStackTraceElement);
 
     void clear();
 }

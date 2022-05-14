@@ -2,7 +2,7 @@ package com.github.alexeysharandin.quarkus.lambdada.runtime.smallrye.mutiny;
 
 import com.github.alexeysharandin.quarkus.lambdada.runtime.EntryMetadata;
 import com.github.alexeysharandin.quarkus.lambdada.runtime.ProfilerRuntimeRecorder;
-import com.github.alexeysharandin.quarkus.lambdada.runtime.Tracker;
+import com.github.alexeysharandin.quarkus.lambdada.runtime.ProfileStackTraceElement;
 import org.jboss.logging.Logger;
 
 import java.io.Serializable;
@@ -26,8 +26,8 @@ public class LambdaTracker {
             metadata = EntryMetadata.from(lambda);
         }
 
-        Tracker tracker = ProfilerRuntimeRecorder.enter(metadata, delegate);
-        supplier.tracker(tracker);
+        ProfileStackTraceElement profileStackTraceElement = ProfilerRuntimeRecorder.enter(metadata, delegate);
+        supplier.tracker(profileStackTraceElement);
     }
     public static <T> void trackAfter(Trackable supplier) {
         ProfilerRuntimeRecorder.exit(supplier.tracker(), supplier.delegate());
