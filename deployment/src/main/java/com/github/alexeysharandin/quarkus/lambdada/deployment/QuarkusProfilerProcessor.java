@@ -3,7 +3,7 @@ package com.github.alexeysharandin.quarkus.lambdada.deployment;
 import com.github.alexeysharandin.quarkus.lambdada.io.sqlite.EmbeddedStackTraceWriter;
 import com.github.alexeysharandin.quarkus.lambdada.io.StackTraceWriter;
 import com.github.alexeysharandin.quarkus.lambdada.runtime.*;
-import com.github.alexeysharandin.quarkus.lambdada.deployment.build.ProfilerDumperBuildItem;
+import com.github.alexeysharandin.quarkus.lambdada.deployment.build.ProfilerStackTraceWriterBuildItem;
 import com.github.alexeysharandin.quarkus.lambdada.deployment.build.ProfilerPluginBuildItem;
 import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -59,13 +59,13 @@ public class QuarkusProfilerProcessor {
     @BuildStep
     @Record(ExecutionTime.STATIC_INIT)
     public void createProfilerBean(
-            List<ProfilerDumperBuildItem> dumperBuildItems,
+            List<ProfilerStackTraceWriterBuildItem> dumperBuildItems,
             List<ProfilerPluginBuildItem> pluginBuildItems,
             BuildProducer<SyntheticBeanBuildItem> syntheticBuildProducer,
             ProfilerRecorder rec
     ) {
         LOGGER.info("Create Profiler Bean");
-        List<StackTraceWriter> stackTraceWriters = registerDumpers(dumperBuildItems);
+        List<StackTraceWriter> stackTraceWriters = registerStackTraceWriters(dumperBuildItems);
         List<ProfilerPlugin> profilerPlugins = registerPlugins(pluginBuildItems);
 
         SyntheticBeanBuildItem bean = SyntheticBeanBuildItem
@@ -77,14 +77,14 @@ public class QuarkusProfilerProcessor {
         syntheticBuildProducer.produce(bean);
     }
 
-    private List<StackTraceWriter> registerDumpers(List<ProfilerDumperBuildItem> dumpers) {
+    private List<StackTraceWriter> registerStackTraceWriters(List<ProfilerStackTraceWriterBuildItem> dumpers) {
         LOGGER.info("Register dumpers");
         List<StackTraceWriter> result = new ArrayList<>();
         if (dumpers.size() == 0) {
             LOGGER.info("Dumpers not found. Register default: " + EmbeddedStackTraceWriter.class.getName());
             result.add(new EmbeddedStackTraceWriter());
         } else {
-            for (ProfilerDumperBuildItem item : dumpers) {
+            for (ProfilerStackTraceWriterBuildItem item : dumpers) {
                 Class<? extends StackTraceWriter> clazz = item.dumperClass();
                 try {
                     result.add(clazz.getDeclaredConstructor().newInstance());

@@ -72,46 +72,62 @@ public class GreetingResource {
         return uni;
     }
 
-    /*private void vertxTest() {
-        Future<String> a = Future.future(h -> h.complete(a()));
-        Future<String> b = Future.future(h -> h.complete(b(a.result())));
-        Future<String> c = Future.future(h -> h.complete(b(b.result())));
-        c.onComplete(h -> System.out.println("Vertx result:" + h.result()));
-    }*/
+    @GET
+    @Path("sleep")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Uni<String> mutinyVertxTest2() {
+        //new Exception().printStackTrace();
+        // Somethere io.vertx.core.impl.DuplicatedContext created
+        Uni<String> uni = Uni
+                .createFrom()
+                .item( () -> this.a("start"))
+                .onItem()
+                .transform((s) -> this.sleep(s, 1000))
+                .onItem()
+                .transform((s) -> s + " magic ")
+                .onItem()
+                .transform((s) -> this.sleep(s, 10000))
+                .onItem()
+                .transform(this::b)
+                .onItem()
+                .transform((s) -> this.sleep(s, 10000))
+                .onItem()
+                .transform(this::c);
 
-    /*private void vertxContextTest() {
-        io.vertx.core.Vertx vertx = io.vertx.core.Vertx.vertx();
-        vertx.getOrCreateContext();
-        VertxOptions options;
-
-        Future<String> a = vertx.executeBlocking(h -> h.complete(a()));
-        Future<String> b = vertx.executeBlocking(h -> h.complete(b(a.result())));
-        Future<String> c = vertx.executeBlocking(h -> h.complete(c(b.result())));
-        c.onComplete(h -> System.out.println("Vertx result:" + h.result()));
+        return uni;
     }
-*/
-/*    private io.vertx.core.Vertx vertx() {
-        return this.vertx.getDelegate();
-    }*/
 
+    private String sleep(String s, int v) {
+        for(int i = 0;i<v*1000000;i++) {
+            s = String.valueOf(i);
+        }
+        return s;
+    }
 
-/*    private Context ctx() {
-        return Vertx.currentContext();
-    }*/
+    @GET
+    @Path("classic")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String classic() {
+        return "Classic";
+    }
 
     private String a(String s) {
-        //System.out.println("A() called in ctx = " + ctx());
+        System.out.println("A() called in ctx = " + ctx());
         return "a";
     }
 
     private String b(String s) {
-        //System.out.println("B() called in ctx = " + ctx());
+        System.out.println("B() called in ctx = " + ctx());
         return s + "b";
     }
 
     private String c(String s) {
-        //System.out.println("C() called in ctx = " + ctx());
+        System.out.println("C() called in ctx = " + ctx());
         return s + "c";
+    }
+
+    private String ctx() {
+        return Thread.currentThread().getName();
     }
 
    /* private String random() {

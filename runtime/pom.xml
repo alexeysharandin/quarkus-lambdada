@@ -35,6 +35,11 @@
             <!--<optional>true</optional>-->
         </dependency>
         <dependency>
+            <groupId>io.quarkiverse.jdbc</groupId>
+            <artifactId>quarkus-jdbc-sqlite</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
             <!-- https://github.com/xerial/sqlite-jdbc -->
             <groupId>org.xerial</groupId>
             <artifactId>sqlite-jdbc</artifactId>

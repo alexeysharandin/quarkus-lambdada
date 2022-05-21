@@ -38,7 +38,8 @@ public class EmbeddedStackTraceWriter implements StackTraceWriter {
                 ":" + profileStackTraceElement.methodName() +
                 " start: " + profileStackTraceElement.startTime() +
                 " executed: " + profileStackTraceElement.result() + "ms" +
-                " meta: " + profileStackTraceElement.meta();
+                " className: " + profileStackTraceElement.meta().className() +
+                " methodName: " + profileStackTraceElement.meta().methodName();
     }
 
     private String offset(int index) {
