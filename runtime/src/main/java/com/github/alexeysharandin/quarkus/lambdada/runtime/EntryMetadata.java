@@ -21,7 +21,7 @@ public class EntryMetadata {
     }
 
     public static EntryMetadata from(SerializedLambda lambda) {
-        System.out.println("lambda = " + lambda);
+        //System.out.println("lambda = " + lambda);
         return from(lambda.getCapturingClass(), lambda.getImplMethodName());
     }
 

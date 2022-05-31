@@ -51,6 +51,12 @@ public class LambdaBuildProcessor {
             //reflectiveClassProducer.produce(ReflectiveClassBuildItem.serializationClass(className));
             transformClass(transformerBuildProducer, className);
         }
+
+        transformQuarkusClasses(transformerBuildProducer);
+    }
+
+    private void transformQuarkusClasses(BuildProducer<BytecodeTransformerBuildItem> transformerBuildProducer) {
+        transformClass(transformerBuildProducer, io.smallrye.mutiny.groups.UniOnNotNull.class.getName());
     }
 
     private void applyApplicationArchive(Collection<ApplicationArchive> applicationArchives, Set<ClassInfo> classes) {

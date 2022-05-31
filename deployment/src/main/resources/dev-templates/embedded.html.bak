@@ -1,3 +1,4 @@
+<!--
 <a href="{config:http-path('quarkus.lamdbada.path')}" class="badge badge-light">
     <i class="fa fa-map-signs fa-fw"></i>
-    Lamdbada</a>
+    Lamdbada</a>-->
