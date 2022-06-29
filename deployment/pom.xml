@@ -25,6 +25,24 @@
             <artifactId>quarkus-vertx-deployment</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-agroal-deployment</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-datasource-deployment</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-narayana-jta-deployment</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkiverse.jdbc</groupId>
+            <artifactId>quarkus-jdbc-sqlite-deployment</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+
 <!--        <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-datasource-deployment-spi</artifactId>
