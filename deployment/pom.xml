@@ -25,14 +25,14 @@
             <artifactId>quarkus-vertx-deployment</artifactId>
         </dependency>
 
-        <dependency>
+<!--        <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-datasource-deployment-spi</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-agroal-spi</artifactId>
-        </dependency>
+        </dependency>-->
 <!--        <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-vertx-http-deployment</artifactId>

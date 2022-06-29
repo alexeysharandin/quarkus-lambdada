@@ -1,24 +1,8 @@
 package com.github.alexeysharandin.quarkus.lambdada.deployment.sqlite;
 
-import com.github.alexeysharandin.quarkus.lambdada.sqlite.SqliteAgroalConnectionConfigurer;
-import io.quarkus.agroal.spi.JdbcDriverBuildItem;
-import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
-import io.quarkus.arc.processor.BuiltinScope;
-import io.quarkus.datasource.deployment.spi.DefaultDataSourceDbKindBuildItem;
-import io.quarkus.datasource.deployment.spi.DevServicesDatasourceConfigurationHandlerBuildItem;
-import io.quarkus.deployment.Capabilities;
-import io.quarkus.deployment.Capability;
-import io.quarkus.deployment.annotations.BuildProducer;
-import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.SslNativeConfigBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.sqlite.JDBC;
-import org.sqlite.SQLiteDataSource;
-
 @SuppressWarnings("unused")
 class JDBCSqliteProcessor {
-    private static final String FEATURE = "JDBC-Sqlite";
+    /*private static final String FEATURE = "JDBC-Sqlite";
 
     private static final String DRIVER_NAME = JDBC.class.getName();
     private static final String DATA_SOURCE_NAME = SQLiteDataSource.class.getName();
@@ -67,5 +51,5 @@ class JDBCSqliteProcessor {
     @BuildStep
     void registerDefaultDbType(BuildProducer<DefaultDataSourceDbKindBuildItem> dbKind) {
         dbKind.produce(new DefaultDataSourceDbKindBuildItem(DB_KIND));
-    }
+    }*/
 }
